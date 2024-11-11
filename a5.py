@@ -125,7 +125,10 @@ class Board:
         Returns:
             True if we've placed all numbers, False otherwise
         """
-        pass
+        if self.num_nums_placed == 81:
+            return True
+        else:
+            return False
 
     def update(self, row: int, column: int, assignment: int) -> None:
         """Assigns the given value to the cell given by passed in row and column
