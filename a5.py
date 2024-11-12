@@ -106,7 +106,13 @@ class Board:
         Returns:
             a tuple of row, column index identifying the most constrained cell
         """
-        pass
+        shortestListLength = 9
+        mostConstrainedXPos = 0
+        mostConstraiedYPos = 0
+        for row in self.rows:
+            for col in range(9):
+                if(len(self.rows[row][column]))
+
 
     def failure_test(self) -> bool:
         """Check if we've failed to correctly fill out the puzzle. If we find a cell
@@ -142,8 +148,18 @@ class Board:
             column - index of the column to assign
             assignment - value to place at given row, column coordinate
         """
-        pass
+        self.rows[row] [column] = assignment
 
+        for i in range(self.size):
+            # remove assignment from the row
+            remove_if_exists(self.rows[row][i], assignment)
+            # remove the assignment from the column
+            remove_if_exists(self.rows[i][column], assignment)
+
+        print(self.subgrid_coordinates(row, column))
+        for i, j in self.subgrid_coordinates(row, column):
+            remove_if_exists(self.rows[i][j], assignment)
+        
 
 def DFS(state: Board) -> Board:
     """Performs a depth first search. Takes a Board and attempts to assign values to
