@@ -108,15 +108,16 @@ class Board:
         """
         shortestListLength = 9
         mostConstrainedXPos = 0
-        mostConstraiedYPos = 0
+        mostConstrainedYPos = 0
         for row in range(9):
             for col in range(9):
-                if(self.rows[row][col] is list):
-                    if(len(self.rows[row][col])<shortestListLength):
-                        shortestListLength = len(self.rows[row][col])
-                        mostConstrainedXPos = col
-                        mostConstraiedYPos = row
-        return (mostConstrainedXPos, mostConstraiedYPos)
+                cell = self.rows[row][col]
+                if(isinstance(cell, list) and len(cell)<shortestListLength):
+                    #if(len(self.rows[row][col])<shortestListLength):
+                    shortestListLength = len(cell)
+                    mostConstrainedXPos = col
+                    mostConstrainedYPos = row
+        return (mostConstrainedYPos, mostConstrainedXPos)
 
 
 
@@ -163,9 +164,10 @@ class Board:
             # remove the assignment from the column
             remove_if_exists(self.rows[i][column], assignment)
 
-        print(self.subgrid_coordinates(row, column))
+        #print(self.subgrid_coordinates(row, column))
         for i, j in self.subgrid_coordinates(row, column):
             remove_if_exists(self.rows[i][j], assignment)
+        self.num_nums_placed += 1
         
 
 def DFS(state: Board) -> Board:
@@ -309,18 +311,18 @@ if __name__ == "__main__":
     # assert b.failure_test() == False, "failure test test 1"
     # assert b.goal_test() == False, "goal test test 1"
 
-    # b.rows[4][3] = []
-    # assert b.find_most_constrained_cell() == (4,3), "find most constrained cell test 2"
+    b.rows[4][3] = []
+    assert b.find_most_constrained_cell() == (4,3), "find most constrained cell test 2"
     # assert b.failure_test() == True, "failure test test 2"
     # print("All part 1 tests passed!")
 
-    # ##Now, let's write some quick tests to check update!
-    # #Create a sudoku board.
-    # g = Board()
-    # #Place the 28 assignments in first_moves on the board.
-    # for trip in first_moves:
-    #     g.update(trip[0],trip[1],trip[2])
-    # g.print_pretty()
+    ##Now, let's write some quick tests to check update!
+    #Create a sudoku board.
+    g = Board()
+    #Place the 28 assignments in first_moves on the board.
+    for trip in first_moves:
+        g.update(trip[0],trip[1],trip[2])
+    g.print_pretty()
     # #From the above print statement, you can see which numbers
     # #  have been assigned to the board, and then create test
     # #  cases by looking at the board and listing what values are
