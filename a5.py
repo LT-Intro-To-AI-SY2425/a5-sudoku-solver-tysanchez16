@@ -130,7 +130,10 @@ class Board:
         Returns:
             True if we have failed to fill out the puzzle, False otherwise
         """
-        pass
+        cell = self.rows[row][col]
+        for row in range(9):
+            for col in range(9):
+                if()
 
     def goal_test(self) -> bool:
         """Check if we've completed the puzzle (if we've placed all the numbers).
