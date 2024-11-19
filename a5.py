@@ -192,7 +192,26 @@ def DFS(state: Board) -> Board:
     Returns:
         either None in the case of invalid input or a solved board
     """
-    pass
+    s = Stack([state])
+
+    
+    while not s.is_empty():
+        b: Board = s.pop()
+        if b.goal_test():
+            return b
+        mcc = b.find_most_constrained_cell()
+        row, col = mcc
+        print(row, col)
+        for val in b.rows[row][col]:
+            print(val)
+            cpy = copy.deepcopy(b)
+            cpy.update(row, col, val)
+            s.push(cpy)
+        
+    return None
+
+    
+    
 
 
 def BFS(state: Board) -> Board:
@@ -348,9 +367,9 @@ if __name__ == "__main__":
     assert g.goal_test() == True, "goal test test"
     print("All part 2 tests passed! Testing DFS and BFS next:")
 
-    # print("<<<<<<<<<<<<<< Testing DFS on First Game >>>>>>>>>>>>>>")
+    print("<<<<<<<<<<<<<< Testing DFS on First Game >>>>>>>>>>>>>>")
 
-    # test_dfs_or_bfs(True, first_moves)
+    test_dfs_or_bfs(True, first_moves)
 
     # print("<<<<<<<<<<<<<< Testing DFS on Second Game >>>>>>>>>>>>>>")
 
